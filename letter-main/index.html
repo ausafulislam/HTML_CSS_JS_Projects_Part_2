@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Coding Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: Poppins, sans-serif;
+      -webkit-user-select: none;
+      user-select:none;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right,
+          #4b6cb7,
+          #182848,
+          #4b6cb7,
+          #2c3e50);
+      font-family: "Martel Sans", sans-serif;
+    }
+
+    h1 {
+      font-size: 5.25vmin;
+      text-align: center;
+      color: white;
+    }
+
+    p {
+      font-size: max(10pt, 2.5vmin);
+      line-height: 1.4;
+      color: #000000;
+      margin-bottom: 1.5rem;
+    }
+
+    .wrap {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 85vmin;
+      height: 65vmin;
+      margin: 2rem auto;
+      border: 8px solid;
+      border-image: linear-gradient(to bottom,
+          #ff8a00,
+          #e52d27,
+          #c10000) 1;
+      transition: 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      padding: 1rem 0.75rem;
+      background: #1c3d5b;
+      transition: 0.4s ease-in-out;
+      z-index: 1;
+    }
+
+    .overlay-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 20vmin;
+      height: 100%;
+      padding: 0.5rem 0 0 0.5rem;
+      border: 3px solid;
+      border-image: linear-gradient(to bottom,
+          #f39c12 5%,
+          #c0392b 35% 65%,
+          #f39c12 95%) 0 0 0 100%;
+      transition: 0.3s ease-in-out 0.2s;
+      z-index: 1;
+    }
+
+    .image-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60vmin;
+      height: 100%;
+      background-image: url("https://img.freepik.com/premium-vector/cute-programmer-debugging-code-cartoon-vector_865091-13403.jpg?semt=ais_hybrid");
+      /* Coding background image */
+      background-size: cover;
+      transition: 0.3s ease-in-out;
+    }
+
+    .inset {
+      max-width: 50%;
+      margin: 0.25em 1em 1em 0;
+      border-radius: 0.25em;
+      float: left;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 1rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      width: 55px;
+      height: 4vmin;
+      transition: 0.3s ease-in-out 0.3s;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      background: yellow;
+      border: 1px solid indigo;
+      border-radius: 50%;
+      transition: 0.3s ease-in-out 0.3s;
+    }
+
+    .text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60vmin;
+      height: 100%;
+      padding: 3vmin 4vmin;
+      background: #fff;
+      box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / 0.4);
+      overflow-y: scroll;
+    }
+
+    .wrap:hover .overlay {
+      transform: translateX(-60vmin);
+    }
+
+    .wrap:hover .image-content {
+      width: 30vmin;
+    }
+
+    .wrap:hover .overlay-content {
+      border: none;
+      transition-delay: 0.2s;
+      transform: translateX(60vmin);
+    }
+
+    .wrap:hover .dots {
+      transform: translateX(1rem);
+    }
+
+    .wrap:hover .dots .dot {
+      background: white;
+    }
+
+    /* Animations and timing delays */
+    .animate {
+      animation-duration: 0.7s;
+      animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+      animation-fill-mode: backwards;
+    }
+
+    /* Pop In */
+    .pop {
+      animation-name: pop;
+    }
+
+    @keyframes pop {
+      0% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1, 1);
+      }
+    }
+
+    /* Slide In */
+    .slide {
+      animation-name: slide;
+    }
+
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        transform: translate(4em, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+
+    /* Slide Left */
+    .slide-left {
+      animation-name: slide-left;
+    }
+
+    @keyframes slide-left {
+      0% {
+        opacity: 0;
+        transform: translate(-40px, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+
+    .slide-up {
+      animation-name: slide-up;
+    }
+
+    @keyframes slide-up {
+      0% {
+        opacity: 0;
+        transform: translateY(3em);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .delay-1 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.6s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.9s;
+    }
+
+    .delay-4 {
+      animation-delay: 1.2s;
+    }
+
+    .delay-5 {
+      animation-delay: 1.5s;
+    }
+
+    .delay-6 {
+      animation-delay: 1.8s;
+    }
+
+    .delay-7 {
+      animation-delay: 2.1s;
+    }
+
+    .delay-8 {
+      animation-delay: 2.4s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap animate pop">
+    <div class="overlay">
+      <div class="overlay-content animate slide-left delay-2">
+        <h1 class="animate slide-left pop delay-4">Coding Journey </h1>
+        <p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">With every line of code,
+          I’ve learned so much!</p>
+      </div>
+      <div class="image-content animate slide delay-5"></div>
+      <div class="dots animate">
+        <div class="dot animate slide-up delay-6"></div>
+        <div class="dot animate slide-up delay-7"></div>
+        <div class="dot animate slide-up delay-8"></div>
+      </div>
+    </div>
+    <div class="text">
+      <p><img class="inset" src="https://img.freepik.com/premium-photo/seo-optimization-modern-tech-php-syntax-highlighted-writing-programming-functions-laptop-big-data-internet-things-trend_372999-588.jpg?w=996"
+          alt="Coding Screenshot" />Coding has been an exciting journey that I’ve embarked on with great passion and
+        curiosity. Throughout the course, I've been guided step-by-step by my wonderful teacher, learning the essentials
+        of creating websites and developing an understanding of front-end technologies.</p>
+      <p>With each challenge, I’ve grown in my knowledge and confidence. Thanks to my teacher’s support, I’ve been able
+        to complete each task, building a stronger foundation in coding.</p>
+      <p>Now, I can see how far I've come, and I’m truly grateful for the experience. It has been an amazing ride, and I
+        can’t wait to continue exploring the world of web development!</p>
+    </div>
+  </div>
+</body>
+
+</html>
